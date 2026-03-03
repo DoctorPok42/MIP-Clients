@@ -6,6 +6,8 @@ This repository contains client implementations for the MIP (MSIP) protocol, whi
 
 - **TypeScript Client**: A robust client implementation in TypeScript, providing type safety and modern JavaScript features. It is suitable for both browser and Node.js environments.
 
+- **Python Client**: An asynchronous client implementation in Python, leveraging asyncio for efficient handling of connections and events. It is ideal for server-side applications or scripts that need to interact with MIP servers.
+
 ## Installation
 
 To install the TypeScript client, use npm:
@@ -14,9 +16,16 @@ To install the TypeScript client, use npm:
 npm install @mip-client/ts
 ```
 
+To install the Python client, use pip:
+
+```bash
+pip install mip-client-python
+```
+
 ## Usage
 
-[Provide usage instructions and examples here](./mip-client-ts/README.md)
+[Provide usage instructions for TypeScript](./mip-client-ts/README.md)  
+[Provide usage instructions for Python](./mip-client-python/README.md)
 
 ## Contributing
 
