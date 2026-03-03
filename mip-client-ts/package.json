@@ -1,6 +1,6 @@
 {
   "name": "@mip-client/ts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TypeScript client for the MIP (MSIP) protocol - handles connections, events, errors, and auto-reconnection",
   "main": "dist/index.js",
   "module": "dist/index.js",
