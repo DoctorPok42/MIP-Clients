@@ -34,11 +34,17 @@ jobs:
       - name: Publish to NPM
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish --access public
+        run: |
+          if ! npm publish --access public 2>&1 | grep -q "You cannot publish over the previously published version"; then
+            exit 1
+          fi
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
             mip-client-ts/dist/*.js
             mip-client-ts/dist/*.d.ts
+            mip-client-ts/LICENSE
+            mip-client-ts/README.md
