@@ -37,6 +37,8 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           body: |
             ## Installation
@@ -55,15 +57,6 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          if ! npm publish --access public 2>&1 | grep -q "You cannot publish over the previously published version"; then
-            exit 1
-          fi
-
-      - name: Publish to GitHub Packages
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          npm config set registry https://npm.pkg.github.com
           if ! npm publish --access public 2>&1 | grep -q "You cannot publish over the previously published version"; then
             exit 1
           fi
