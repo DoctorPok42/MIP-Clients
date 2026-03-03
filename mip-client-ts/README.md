@@ -1,4 +1,4 @@
-# MIP-client-ts
+# MIP-Client-ts
 
 TypeScript client for the MIP (MSIP) protocol - handles connections, events, errors, and auto-reconnection.
 
