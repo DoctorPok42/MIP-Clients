@@ -1,17 +1,17 @@
 [package]
 name = "mip-client"
-version = "1.0.0"
-edition = "2021"
-authors = ["MIP Team"]
-description = "Rust client for the MIP (MSIP) protocol with async support"
+version = "1.0.1"
+edition = "2024"
+authors = ["DoctorPok42"]
+description = "Rust client for the MIP (MSIP) protocol with async support and event handling."
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/mip-client/mip-client-rust"
-homepage = "https://github.com/mip-client/mip-client-rust"
+repository = "https://github.com/DoctorPok42/MIP-Clients/tree/main/mip-client-rust"
+homepage = "https://github.com/DoctorPok42/MIP-Clients"
 documentation = "https://docs.rs/mip-client"
-keywords = ["mip", "msip", "protocol", "async", "client"]
-categories = ["network-programming", "asynchronous"]
-rust-version = "1.70"
+keywords = ["mip", "msip", "protocol", "async", "client", "networking"]
+categories = ["network-programming", "asynchronous", "protocols"]
+rust-version = "1.85"
 
 [lib]
 name = "mip_client"
