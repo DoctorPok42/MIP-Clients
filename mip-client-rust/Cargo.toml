@@ -9,7 +9,7 @@ readme = "README.md"
 repository = "https://github.com/DoctorPok42/MIP-Clients/tree/main/mip-client-rust"
 homepage = "https://github.com/DoctorPok42/MIP-Clients"
 documentation = "https://docs.rs/mip-client"
-keywords = ["mip", "msip", "protocol", "async", "client", "networking"]
+keywords = ["mip", "msip", "protocol", "async", "client"]
 categories = ["network-programming", "asynchronous", "protocols"]
 rust-version = "1.85"
 
