@@ -1,6 +1,17 @@
 # MIP-Client-ts
 
+[![npm version](https://img.shields.io/npm/v/@mip-client/ts.svg)](https://www.npmjs.com/package/@mip-client/ts)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 TypeScript client for the MIP (MSIP) protocol - handles connections, events, errors, and auto-reconnection.
+
+**Server implementation:** [MIP Server](https://github.com/DoctorPok42/MIP)
+
+**Part of the MIP Client family:**
+
+- TypeScript: [@mip-client/ts](https://www.npmjs.com/package/@mip-client/ts) (this package)
+- Python: [mip-client-python](https://pypi.org/project/mip-client-python/)
+- Rust: [mip-client](https://crates.io/crates/mip-client)
 
 ## Installation
 

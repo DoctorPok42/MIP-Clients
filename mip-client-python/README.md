@@ -1,6 +1,17 @@
 # MIP-Client-python
 
+[![PyPI version](https://img.shields.io/pypi/v/mip-client-python.svg)](https://pypi.org/project/mip-client-python/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Python async client for the MIP (MSIP) protocol - handles connections, events, errors, and auto-reconnection.
+
+**Server implementation:** [MIP Server](https://github.com/DoctorPok42/MIP)
+
+**Part of the MIP Client family:**
+
+- TypeScript: [@mip-client/ts](https://www.npmjs.com/package/@mip-client/ts)
+- Python: [mip-client-python](https://pypi.org/project/mip-client-python/) (this package)
+- Rust: [mip-client](https://crates.io/crates/mip-client)
 
 ## Installation
 

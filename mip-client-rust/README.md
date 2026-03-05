@@ -6,6 +6,8 @@
 
 Rust client for the MIP (MSIP) protocol with async support.
 
+**Server implementation:** [MIP Server](https://github.com/DoctorPok42/MIP)
+
 **Part of the MIP Client family:**
 
 - TypeScript: [@mip-client/ts](https://www.npmjs.com/package/@mip-client/ts)

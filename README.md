@@ -1,6 +1,13 @@
 # MIP-Clients
 
+[![npm version](https://img.shields.io/npm/v/@mip-client/ts.svg?label=npm)](https://www.npmjs.com/package/@mip-client/ts)
+[![PyPI version](https://img.shields.io/pypi/v/mip-client-python.svg?label=pypi)](https://pypi.org/project/mip-client-python/)
+[![Crates.io](https://img.shields.io/crates/v/mip-client.svg?label=crates.io)](https://crates.io/crates/mip-client)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 This repository contains client implementations for the MIP (MSIP) protocol, which is used for real-time communication in various applications. The clients are designed to handle connections, events, errors, and auto-reconnection seamlessly.
+
+**Server implementation:** [MIP Server](https://github.com/DoctorPok42/MIP)
 
 ## Clients
 
