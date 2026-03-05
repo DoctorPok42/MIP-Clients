@@ -10,7 +10,7 @@ repository = "https://github.com/DoctorPok42/MIP-Clients/tree/main/mip-client-ru
 homepage = "https://github.com/DoctorPok42/MIP-Clients"
 documentation = "https://docs.rs/mip-client"
 keywords = ["mip", "msip", "protocol", "async", "client"]
-categories = ["network-programming", "asynchronous", "protocols"]
+categories = ["network-programming", "asynchronous"]
 rust-version = "1.85"
 
 [lib]
