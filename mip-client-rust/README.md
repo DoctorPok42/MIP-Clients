@@ -1,4 +1,4 @@
-# MIP Client
+# MIP-Client-rust
 
 [![Crates.io](https://img.shields.io/crates/v/mip-client.svg)](https://crates.io/crates/mip-client)
 [![Documentation](https://docs.rs/mip-client/badge.svg)](https://docs.rs/mip-client)
@@ -80,7 +80,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 ### MIPClientOptions
 
 | Option | Type | Default | Description |
-|--------|------|---------|-------------|
+| -------- | ------ | --------- | ------------- |
 | `host` | String | "127.0.0.1" | Server host address |
 | `port` | u16 | 9000 | Server port number |
 | `auto_reconnect` | bool | true | Auto-reconnect on disconnect |
@@ -91,7 +91,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 ### Methods
 
 | Method | Description |
-|--------|-------------|
+| -------- | ------------- |
 | `connect()` | Connect to the MIP server |
 | `disconnect()` | Disconnect from the server |
 | `subscribe(topic, require_ack)` | Subscribe to a topic |
@@ -103,7 +103,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 ### Events
 
 | Event | Callback Type | Description |
-|-------|---------------|-------------|
+| ------- | --------------- | ------------- |
 | `on_connect` | `Fn()` | Called when connected |
 | `on_disconnect` | `Fn()` | Called when disconnected |
 | `on_reconnecting` | `Fn(u32)` | Called on reconnection attempt |
