@@ -66,8 +66,38 @@ jobs:
             mip-client-python/LICENSE
             mip-client-python/README.md
 
+  build-rust:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./mip-client-rust
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build package
+        run: cargo build --release
+
+      - name: Run tests
+        run: cargo test --release
+
+      - name: Package source
+        run: cargo package --allow-dirty
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: rust-dist
+          path: |
+            mip-client-rust/target/package/*.crate
+            mip-client-rust/LICENSE
+            mip-client-rust/README.md
+
   release:
-    needs: [build-ts, build-python]
+    needs: [build-ts, build-python, build-rust]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -83,6 +113,12 @@ jobs:
         with:
           name: python-dist
           path: python-dist
+
+      - name: Download Rust artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: rust-dist
+          path: rust-dist
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
@@ -101,6 +137,12 @@ jobs:
             pip install mip-client-python
             ```
             📦 [View on PyPI](https://pypi.org/project/mip-client-python/)
+
+            ## Rust Client
+            ```bash
+            cargo add mip-client
+            ```
+            📦 [View on crates.io](https://crates.io/crates/mip-client)
           files: |
             ts-dist/mip-client-ts/dist/*.js
             ts-dist/mip-client-ts/dist/*.d.ts
@@ -110,6 +152,9 @@ jobs:
             python-dist/mip-client-python/dist/*.tar.gz
             python-dist/mip-client-python/LICENSE
             python-dist/mip-client-python/README.md
+            rust-dist/mip-client-rust/target/package/*.crate
+            rust-dist/mip-client-rust/LICENSE
+            rust-dist/mip-client-rust/README.md
 
   publish-npm:
     needs: release
@@ -171,3 +216,20 @@ jobs:
         with:
           packages-dir: mip-client-python/dist/
           skip-existing: true
+
+  publish-crates:
+    needs: release
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./mip-client-rust
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Publish to crates.io
+        uses: katyo/publish-crates@v2
+        with:
+          registry-token: ${{ secrets.CRATES_IO_TOKEN }}
+          path: ./mip-client-rust
+          ignore-unpublished-changes: true

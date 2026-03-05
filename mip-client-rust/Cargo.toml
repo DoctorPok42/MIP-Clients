@@ -1,0 +1,33 @@
+[package]
+name = "mip-client"
+version = "1.0.0"
+edition = "2021"
+authors = ["MIP Team"]
+description = "Rust client for the MIP (MSIP) protocol with async support"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/mip-client/mip-client-rust"
+homepage = "https://github.com/mip-client/mip-client-rust"
+documentation = "https://docs.rs/mip-client"
+keywords = ["mip", "msip", "protocol", "async", "client"]
+categories = ["network-programming", "asynchronous"]
+rust-version = "1.70"
+
+[lib]
+name = "mip_client"
+path = "src/lib.rs"
+
+[[bin]]
+name = "mip-client-example"
+path = "src/main.rs"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+bitflags = "2"
+thiserror = "1"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
