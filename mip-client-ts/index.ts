@@ -1,5 +1,5 @@
-import * as net from "net";
-import { EventEmitter } from "events";
+import * as net from "node:net";
+import { EventEmitter } from "node:events";
 
 // ============================================================================
 // Constants
@@ -43,6 +43,8 @@ const MSG_KIND_EVENT = 0x0001;
 
 /** Configuration options for the MIP client */
 export interface MIPClientOptions {
+  /** Unique client identifier (optional) */
+  clientId?: string;
   /** Server host address */
   host: string;
   /** Server port number */
@@ -102,7 +104,8 @@ export interface MIPClientEvents {
 export class MIPClient extends EventEmitter {
   private socket: net.Socket | null = null;
   private buffer: Buffer = Buffer.alloc(0);
-  private options: Required<MIPClientOptions>;
+  private readonly options: Required<MIPClientOptions>;
+  private clientId: string;
   private connected: boolean = false;
   private reconnectAttempts: number = 0;
   private reconnectTimer: ReturnType<typeof setTimeout> | null = null;
@@ -111,7 +114,9 @@ export class MIPClient extends EventEmitter {
 
   constructor(options: MIPClientOptions) {
     super();
+    this.clientId = options.clientId ?? "";
     this.options = {
+      clientId: this.clientId,
       host: options.host,
       port: options.port,
       autoReconnect: options.autoReconnect ?? true,
@@ -146,6 +151,15 @@ export class MIPClient extends EventEmitter {
         this.reconnectAttempts = 0;
         this.setupPingInterval();
         this.emit("connect");
+
+        const payload = Buffer.from(this.clientId, "utf-8");
+        try {
+          const msgId = this.sendFrame(FrameType.HELLO, payload, Flags.NONE);
+          this.clientId = msgId.toString();
+        } catch (err) {
+          this.emitError({ message: `Failed to send HELLO frame: ${err}` });
+        }
+
         resolve();
       };
 

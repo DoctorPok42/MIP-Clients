@@ -29,6 +29,7 @@ import { MIPClient } from "mip-client-ts";
 const client = new MIPClient({
   host: "127.0.0.1",
   port: 9000,
+  clientId: "my_client_123",
 });
 
 // Events
@@ -76,6 +77,7 @@ import { MIPClient, Flags } from "mip-client-ts";
 const client = new MIPClient({
   host: "127.0.0.1",
   port: 9000,
+  clientId: "my_client_123",  // Optional client identifier
   autoReconnect: true,        // Auto-reconnect (default: true)
   reconnectDelay: 3000,       // Delay between reconnections (default: 3000ms)
   maxReconnectAttempts: 10,   // Max attempts (0 = infinite)
@@ -129,6 +131,7 @@ const client = createClient("127.0.0.1", 9000, {
 
 | Option                 | Type      | Default | Description                            |
 | ---------------------- | --------- | ------- | -------------------------------------- |
+| `clientId`             | `string`  | `""`    | Client identifier (sent in HELLO frame)|
 | `host`                 | `string`  | -       | Server address                         |
 | `port`                 | `number`  | -       | Server port                            |
 | `autoReconnect`        | `boolean` | `true`  | Auto-reconnect on disconnect           |
