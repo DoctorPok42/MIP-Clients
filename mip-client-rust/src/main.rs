@@ -5,8 +5,10 @@ use mip_client::{MIPClient, MIPClientOptions, FrameFlags};
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     tracing_subscriber::fmt::init();
+    let client_id = "";
 
     let options = MIPClientOptions::default()
+        .client_id(client_id.to_string())
         .host("127.0.0.1")
         .port(9000)
         .auto_reconnect(true)

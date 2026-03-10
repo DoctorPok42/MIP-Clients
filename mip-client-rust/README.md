@@ -46,6 +46,7 @@ use mip_client::{MIPClient, MIPClientOptions, FrameFlags};
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let options = MIPClientOptions::default()
+        .client_id("my_client_123") // Optional client identifier
         .host("127.0.0.1")
         .port(9000)
         .auto_reconnect(true);
@@ -81,6 +82,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 | Option | Type | Default | Description |
 | -------- | ------ | --------- | ------------- |
+| `client_id` | String | "" | Client identifier (sent in HELLO frame) |
 | `host` | String | "127.0.0.1" | Server host address |
 | `port` | u16 | 9000 | Server port number |
 | `auto_reconnect` | bool | true | Auto-reconnect on disconnect |

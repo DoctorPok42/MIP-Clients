@@ -41,6 +41,8 @@ pub type MIPResult<T> = Result<T, MIPError>;
 /// Configuration options for the MIP client
 #[derive(Debug, Clone)]
 pub struct MIPClientOptions {
+    /// Unique client identifier (optional)
+    pub client_id: String,
     /// Server host address
     pub host: String,
     /// Server port number
@@ -60,6 +62,7 @@ impl Default for MIPClientOptions {
         Self {
             host: "127.0.0.1".to_string(),
             port: 9000,
+            client_id: "".to_string(),
             auto_reconnect: true,
             reconnect_delay_ms: 3000,
             max_reconnect_attempts: 10,
@@ -69,6 +72,12 @@ impl Default for MIPClientOptions {
 }
 
 impl MIPClientOptions {
+    /// Client ID (optional, can be used for authentication or tracking)
+    pub fn client_id(mut self, client_id: impl Into<String>) -> Self {
+        self.client_id = client_id.into();
+        self
+    }
+
     /// Set the host address
     pub fn host(mut self, host: impl Into<String>) -> Self {
         self.host = host.into();

@@ -1,6 +1,6 @@
 [package]
 name = "mip-client"
-version = "1.0.1"
+version = "1.0.2"
 edition = "2024"
 authors = ["DoctorPok42"]
 description = "Rust client for the MIP (MSIP) protocol with async support and event handling."

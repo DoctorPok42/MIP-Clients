@@ -29,6 +29,7 @@ use internals::{
 
 /// Async MIP protocol client with auto-reconnection support
 pub struct MIPClient {
+    client_id: String,
     options: Arc<RwLock<MIPClientOptions>>,
     connected: Arc<AtomicBool>,
     running: Arc<AtomicBool>,
@@ -46,16 +47,17 @@ pub struct MIPClient {
 impl MIPClient {
     pub fn new(options: MIPClientOptions) -> Self {
         Self {
-            options: Arc::new(RwLock::new(options)),
-            connected: Arc::new(AtomicBool::new(false)),
-            running: Arc::new(AtomicBool::new(false)),
-            msg_id_counter: Arc::new(AtomicU64::new(0)),
-            reconnect_attempts: Arc::new(AtomicU64::new(0)),
-            callbacks: Arc::new(RwLock::new(Callbacks::default())),
-            command_tx: None,
-            read_task: None,
-            write_task: None,
-            ping_task: None,
+          client_id: options.client_id.clone(),
+          options: Arc::new(RwLock::new(options)),
+          connected: Arc::new(AtomicBool::new(false)),
+          running: Arc::new(AtomicBool::new(false)),
+          msg_id_counter: Arc::new(AtomicU64::new(0)),
+          reconnect_attempts: Arc::new(AtomicU64::new(0)),
+          callbacks: Arc::new(RwLock::new(Callbacks::default())),
+          command_tx: None,
+          read_task: None,
+          write_task: None,
+          ping_task: None,
         }
     }
 
@@ -265,6 +267,28 @@ impl MIPClient {
         let callbacks = self.callbacks.read().await;
         for callback in &callbacks.on_connect {
             callback();
+        }
+
+        let client_id = self.options.read().await.client_id.clone();
+        let payload = client_id.as_bytes();
+
+        if let Some(tx) = &self.command_tx {
+            let res = send_frame(
+              Some(tx),
+              &self.connected.clone(),
+              &self.msg_id_counter.clone(),
+              FrameType::Hello, payload,
+              FrameFlags::NONE
+            );
+
+            if let Err(e) = res {
+              println!("Failed to send HELLO frame: {}", e);
+                self.connected.store(false, Ordering::SeqCst);
+                self.running.store(false, Ordering::SeqCst);
+                return Err(e);
+            } else {
+              self.client_id = res.unwrap().to_string();
+            }
         }
 
         info!("Connected to {}", addr);
