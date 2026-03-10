@@ -70,6 +70,7 @@ class MIPClientOptions:
     """Configuration options for the MIP client"""
     host: str = "127.0.0.1"
     port: int = 9000
+    client_id: str = ""
     auto_reconnect: bool = True
     reconnect_delay: float = 3.0
     max_reconnect_attempts: int = 10
@@ -141,6 +142,7 @@ class MIPClient:
             options = MIPClientOptions(**kwargs)
 
         self._options = options
+        self._client_id: str = options.client_id
         self._reader: Optional[asyncio.StreamReader] = None
         self._writer: Optional[asyncio.StreamWriter] = None
         self._buffer: bytes = b""
@@ -253,6 +255,16 @@ class MIPClient:
             # Emit connect event
             for callback in self._on_connect:
                 callback()
+
+            payload = self._client_id.encode("utf-8")
+            try:
+                msg_id = self._send_frame(FrameType.HELLO, payload, Flags.NONE)
+                self._client_id = str(msg_id)
+            except Exception as e:
+                logger.error("Failed to send HELLO frame: %s", e)
+                self._connected = False
+                self._running = False
+                raise
 
         except Exception as e:
             self._emit_error(MIPError(message=str(e)))

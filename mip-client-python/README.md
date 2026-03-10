@@ -28,7 +28,7 @@ import asyncio
 from mip_client import MIPClient
 
 async def main():
-    client = MIPClient(host="127.0.0.1", port=9000)
+    client = MIPClient(host="127.0.0.1", port=9000, client_id="my_client_123")
 
     # Register event callbacks
     client.on_connect(lambda: print("Connected to server"))
@@ -71,6 +71,7 @@ from mip_client import MIPClient, Flags
 client = MIPClient(
     host="127.0.0.1",
     port=9000,
+    client_id="my_client_123",  # Optional client identifier
     auto_reconnect=True,        # Auto-reconnect (default: True)
     reconnect_delay=3.0,        # Delay between reconnections in seconds (default: 3.0)
     max_reconnect_attempts=10,  # Max attempts (0 = infinite)
